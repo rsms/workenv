@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key><string>se.hunch.wimc</string>
+  <key>ProgramArguments</key><array>
+    <string>/usr/bin/curl</string>
+    <string>--silent</string>
+    <string>--output</string>
+    <string>/var/log/se.hunch.wimc.log</string>
+    <string>http://ws.hunch.se/wimc/?id=YOUR_ID_HERE</string>
+  </array>
+  <key>LowPriorityIO</key><true/>
+  <key>Nice</key><integer>1</integer>
+  <key>StartInterval</key><integer>60</integer>
+</dict>
+</plist>

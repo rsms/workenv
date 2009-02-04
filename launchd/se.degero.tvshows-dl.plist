@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+Installing:
+cp se.degero.tvshows-dl.plist ~/Library/LaunchAgents/
+launchctl load ~/Library/LaunchAgents/se.degero.tvshows-dl.plist
+-->
+<plist><dict>
+  <key>Label</key><string>se.degero.tvshows-dl</string>
+  <key>RunAtLoad</key><false/>
+  <key>ProgramArguments</key><array>
+    <string>/Users/rasmus/src/tvshows/trunk/cli-tool/tvshows</string>
+    <string>dl</string>
+  </array>
+  <key>StartInterval</key><integer>1800</integer><!-- 1800 = 30min -->
+</dict></plist>

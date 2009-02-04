@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+INSTALLATION
+  
+  if [ ! -x /usr/bin/sshfs ]; then ln -sf /Applications/sshfs.app/Contents/Resources/sshfs-static-10.5 /usr/bin/sshfs; fi
+  sed 's/$USER/'$USER'/g' fuse.sshfs.mount.plist > ~/Library/LaunchAgents/fuse.sshfs.mount.plist
+  mkdir -p ~/Library/Scripts
+  cp fuse.sshfs.mount.sh ~/Library/Scripts
+  launchctl load ~/Library/LaunchAgents/fuse.sshfs.mount.plist
+
+
+CONFIGURATION
+  
+  See fuse.sshfs.mount.sh
+
+-->
+<plist version="1.0">
+<dict>
+  <key>Label</key><string>fuse.sshfs.mount</string>
+  <key>Program</key><string>/Users/$USER/Library/Scripts/fuse.sshfs.mount.sh</string>
+  <key>RunAtLoad</key><true/>
+  <key>KeepAlive</key><dict>
+    <key>NetworkState</key><true/>
+  </dict>
+  <key>LowPriorityIO</key><false/>
+</dict>
+</plist>

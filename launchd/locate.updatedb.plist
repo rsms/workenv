@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Label</key>
+	<string>locate.updatedb</string>
+	<key>ProgramArguments</key>
+	<array>
+		<string>/usr/libexec/locate.updatedb</string>
+	</array>
+	<key>ServiceDescription</key>
+	<string>Updates the locate database</string>
+	<key>StartCalendarInterval</key>
+	<dict>
+		<key>Hour</key>
+		<integer>4</integer>
+		<key>Minute</key>
+		<integer>23</integer>
+	</dict>
+</dict>
+</plist>
