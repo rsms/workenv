@@ -1,0 +1,50 @@
+#!/usr/bin/python -u
+# encoding: utf-8
+"""
+Utility for highlighting keywords in terminals.
+
+Usage:
+ $ python highlight -f /etc/passwd '/bin/false$'
+"""
+
+import sys, re
+import optparse
+
+def colorize(string, regexps):
+  for i, exp in regexps:
+    col = (i % 7) + 31
+    mod = ((i/7) + 1 % 2)
+    string = exp.sub('\033[%d;%d;40m\g<0>\033[0m' % (mod, col), string)
+  return string
+
+def main():
+  parser = optparse.OptionParser(version="%prog 1.0",
+                   usage="usage: %prog [options] REGEX [...]")
+  parser.add_option("-i", "--ignore-case", dest='ignore_case',
+            action="store_true", default=False,
+            help='be case insensitive')
+  parser.add_option("-f", "--file", dest='file',
+            metavar="F", default=None,
+            help='read data from F (default is stdin)')
+  options, args = parser.parse_args()
+  if not args:
+    parser.error("You must specify REGEX!")
+
+  regexps = []
+  for i,pattern in enumerate(args):
+    if options.ignore_case:
+      regexps.append( (i, re.compile(pattern, re.I)) )
+    else:
+      regexps.append( (i, re.compile(pattern)) )
+
+  file = sys.stdin
+  if options.file:
+    file = open(options.file)
+  while 1:
+    # we need to do this in order to avoid multiline buffering
+    line = file.readline()
+    if not line:
+      break
+    sys.stdout.write(colorize(line, regexps))
+
+if __name__ == '__main__': main()

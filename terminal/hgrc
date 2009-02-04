@@ -1,0 +1,30 @@
+[ui]
+username = Rasmus Andersson <rasmus@.com>
+
+[extensions]
+color =
+
+[color]
+# 'none' turns off all effects
+status.modified = cyan bold
+status.added = green bold
+status.removed = red bold
+status.deleted = yellow bold underline
+status.unknown = none
+status.ignored = black bold
+status.clean = none
+status.copied = none
+
+qseries.applied = blue bold underline
+qseries.unapplied = black bold
+qseries.missing = red bold
+
+diff.diffline = cyan_background black
+diff.extended = cyan bold
+diff.file_a = black_background red bold
+diff.file_b = black_background green bold
+diff.hunk = black_background magenta bold
+diff.deleted = red bold
+diff.inserted = green bold
+diff.changed = white bold
+diff.trailingwhitespace = bold red_background

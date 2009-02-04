@@ -1,0 +1,36 @@
+[user]
+  email = rasmus@.com
+  name = Rasmus Andersson
+
+[branch]
+  autosetupmerge = true
+
+[color]
+  ui = auto
+
+[color "branch"]
+  current = cyan bold
+  local = yellow bold
+  remote = green bold
+
+[color "diff"]
+  meta = white bold
+  frag = cyan bold
+  old = red bold
+  new = green bold
+
+[color "status"]
+  added = green bold
+  changed = yellow bold
+  untracked = cyan bold
+
+[alias]
+  st = status
+  ci = commit
+  br = branch
+  co = checkout
+  up = pull origin master
+  pu = push origin master
+
+[core]
+	excludesfile = /Users/rasmus/.gitignore
