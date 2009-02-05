@@ -26,7 +26,7 @@
 
 [alias]
   st = status
-  ci = commit -m
+  ci = commit -a -m
   br = branch
   co = checkout
   up = pull origin master
