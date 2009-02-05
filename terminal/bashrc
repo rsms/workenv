@@ -56,11 +56,9 @@ else
 fi
 
 # RCS/VCS
-alias up="if [ -d .git ]; then git pull . master; elif [ -d .svn ]; then svn up; else hg pull -u;  fi"
-#alias st="if [ -d .git ]; then git status;    elif [ -d .svn ]; then svn st -u; else hg -v st;    fi"
 st() {
-  if [ -d .git ] || [ -d ../.git ] || [ -d ../../.git ]; then
-    git status $*
+  if [ -d .hg ]; then
+    hg -v status $*
   elif [ -d .svn ]; then
     svn st $* | perl -we 'local $endpiece=""; local @conflicts=(); while(<>){
       if(m/^X/) { print "\033[1;30m"; }
@@ -83,21 +81,19 @@ st() {
       print "$endpiece\033[1m\033[41mConflicts:\033[0m \n", @conflicts;
     }'
   else
-    hg -v status $*
+    git status $*
   fi
 }
-alias ci='hg -v ci -m'
-alias gitci='git commit -m'
+alias ci='git commit -a -m'
+alias hgci='hg commit -m'
 alias svnci='svn ci -m'
-alias pu="if [ -d .git ]; then git push origin master; else hg push; fi"
-alias push='pu'
 df() {
-  if [ -d .git ] || [ -d ../.git ] || [ -d ../../.git ]; then
-    git diff $*
+  if [ -d .hg ]; then
+    hg diff -p --color=always $* | less --no-lessopen -R
   elif [ -d .svn ]; then
     svn diff -x -u -x -b $* | pyglessfilter
   else
-    hg diff -p --color=always $* | less --no-lessopen -R
+    git diff $*
   fi
 }
 
