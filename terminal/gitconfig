@@ -30,7 +30,7 @@
   br = branch
   co = checkout
   up = pull origin master
-  pu = push origin master
+  pu = push --tags origin master
 
 [core]
-	excludesfile = /Users/rasmus/.gitignore
+  excludesfile = /Users/rasmus/.gitignore
