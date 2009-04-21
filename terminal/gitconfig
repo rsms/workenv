@@ -29,7 +29,7 @@
   ci = commit -m
   br = branch
   co = checkout
-  up = pull origin master
+  up = pull --tags origin master
   pu = push --tags origin master
 
 [core]
