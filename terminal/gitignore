@@ -13,3 +13,7 @@ setuptools-*.egg
 debian/*.debhelper
 debian/*.substvars
 debian/files
+
+*.xcodeproj/*.pbxuser
+*.xcodeproj/*.perspective*
+*.xcodeproj/*.mode1*
