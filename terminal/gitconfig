@@ -1,5 +1,5 @@
 [user]
-  email = rasmus@.com
+  email = rasmus@
   name = Rasmus Andersson
 
 [branch]
@@ -14,10 +14,11 @@
   remote = green bold
 
 [color "diff"]
-  meta = white bold
+  meta = blue bold
   frag = cyan bold
   old = red bold
   new = green bold
+  whitespace = red reverse
 
 [color "status"]
   added = green bold
