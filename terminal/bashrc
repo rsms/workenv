@@ -107,6 +107,7 @@ export GREP_COLOR='40;01;31'
 alias py='python'
 # recursive diff: rdiff [options to diff] diroriginal dirmodified
 alias rdiff='diff -ruNx .DS_Store -x "~*" -x "._*"'
+export PYTHONSTARTUP="$HOME/.pystartup"
 
 # Git status for prompt
 function parse_git_dirty {
