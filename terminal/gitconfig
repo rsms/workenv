@@ -32,6 +32,7 @@
   co = checkout
   up = pull --tags origin master
   pu = push --tags origin master
+  log = log --topo-order --decorate
 
 [core]
   excludesfile = /Users/rasmus/.gitignore
