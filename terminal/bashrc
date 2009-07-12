@@ -84,7 +84,7 @@ st() {
     git status $*
   fi
 }
-alias ci='git commit -a -m'
+alias ci='git ci'
 alias hgci='hg commit -m'
 alias svnci='svn ci -m'
 df() {
