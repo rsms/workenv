@@ -33,6 +33,7 @@
   up = pull --tags origin master
   pu = push --tags origin master
   log = log --topo-order --decorate
+  addp = add --patch
 
 [core]
   excludesfile = /Users/rasmus/.gitignore
