@@ -64,7 +64,7 @@
 	<key>Fonts</key>
 	<dict>
 		<key>xcode.syntax.plain</key>
-		<string>Inconsolata - 13.0</string>
+		<string>Inconsolata - 12.0</string>
 	</dict>
 </dict>
 </plist>
