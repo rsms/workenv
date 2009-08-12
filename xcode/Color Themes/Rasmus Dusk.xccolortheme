@@ -63,28 +63,8 @@
 	</dict>
 	<key>Fonts</key>
 	<dict>
-		<key>xcode.syntax.attribute</key>
-		<string>Inconsolata - 14.0</string>
-		<key>xcode.syntax.character</key>
-		<string>Inconsolata - 14.0</string>
-		<key>xcode.syntax.comment</key>
-		<string>Inconsolata - 14.0</string>
-		<key>xcode.syntax.comment.doc</key>
-		<string>Inconsolata - 14.0</string>
-		<key>xcode.syntax.comment.doc.keyword</key>
-		<string>Inconsolata - 14.0</string>
-		<key>xcode.syntax.keyword</key>
-		<string>Inconsolata - 14.0</string>
-		<key>xcode.syntax.number</key>
-		<string>Inconsolata - 14.0</string>
 		<key>xcode.syntax.plain</key>
-		<string>Inconsolata - 14.0</string>
-		<key>xcode.syntax.preprocessor</key>
-		<string>Inconsolata - 14.0</string>
-		<key>xcode.syntax.string</key>
-		<string>Inconsolata - 14.0</string>
-		<key>xcode.syntax.url</key>
-		<string>Inconsolata - 14.0</string>
+		<string>Inconsolata - 13.0</string>
 	</dict>
 </dict>
 </plist>
