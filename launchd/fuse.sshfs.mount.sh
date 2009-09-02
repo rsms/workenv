@@ -6,7 +6,6 @@ mkdir -p /Volumes/hal
 	/Volumes/hal -f \
 	-o reconnect,compression=yes \
 	-o idmap=user,transform_symlinks,jail_symlinks,noappledouble \
-	-o volname=hal
+	-o volname=hal,fsid=1337
 	#-o iconpath=$HOME/Library/Scripts/some.icon
-
-
+/sbin/umount -f /Volumes/hal
