@@ -8,4 +8,4 @@ mkdir -p /Volumes/hal
 	-o idmap=user,transform_symlinks,jail_symlinks,noappledouble \
 	-o volname=hal,fsid=1337
 	#-o iconpath=$HOME/Library/Scripts/some.icon
-/sbin/umount -f /Volumes/hal
+/sbin/umount -f /Volumes/hal 2>/dev/null
