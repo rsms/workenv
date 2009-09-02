@@ -3,7 +3,6 @@
 <!--
 INSTALLATION
   
-  if [ ! -x /usr/bin/sshfs ]; then ln -sf /Applications/sshfs.app/Contents/Resources/sshfs-static-10.5 /usr/bin/sshfs; fi
   sed 's/$USER/'$USER'/g' fuse.sshfs.mount.plist > ~/Library/LaunchAgents/fuse.sshfs.mount.plist
   mkdir -p ~/Library/Scripts
   cp fuse.sshfs.mount.sh ~/Library/Scripts
