@@ -5,6 +5,7 @@
 *.pyc
 *.crash
 *.so
+*.o
 setuptools-*.egg
 * copy.*
 ._*
