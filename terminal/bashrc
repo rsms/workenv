@@ -6,36 +6,38 @@ shopt -s checkwinsize cmdhist
 export EDITOR=nano
 
 if [ -d /System/Library/CoreServices/Finder.app ]; then
-  # BEGIN Mac OS X specific
-  alias esed='sed -E'
-  export CLICOLOR=1
-  export LSCOLORS=ExGxcxdxCxegedabagacad
-  alias l='ls -lAFh'
-  if [ -r /opt ]; then
-    export PATH=/opt/local/bin:/opt/local/sbin:$PATH
-    export MANPATH=$MANPATH:/opt/local/share/man
-    if [ -f /opt/local/etc/bash_completion ]; then
-      . /opt/local/etc/bash_completion
-    fi
-  fi
-  rgrep() {
-    mdfind -0 -onlyin "$1" "$2" | xargs -0 grep --color "$2"
-  }
-  rfind() {
-    mdfind -onlyin "$1" "$2"
-  }
-  # END Mac OS X specific
+	# BEGIN Mac OS X specific
+	alias esed='sed -E'
+	export CLICOLOR=1
+	export LSCOLORS=ExGxcxdxCxegedabagacad
+	alias l='ls -lAFh'
+	if [ -d /opt ]; then
+		export PATH=/opt/local/bin:/opt/local/sbin:$PATH
+		export MANPATH=$MANPATH:/opt/local/share/man
+		if [ -f /opt/local/etc/bash_completion ]; then
+			. /opt/local/etc/bash_completion
+		fi
+	fi
+	rgrep() {
+		mdfind -0 -onlyin "$1" "$2" | xargs -0 grep --color "$2"
+	}
+	rfind() {
+		mdfind -onlyin "$1" "$2"
+	}
+	export GOOS=darwin
+	# END Mac OS X specific
 else
-  # BEGIN Linux specific
-  alias esed='sed -r'
-  eval "`dircolors`"
-  alias ls='ls --color=auto'
-  alias l='ls --color=auto -lAFh'
-  [ -x /usr/bin/lesspipe ] && eval "$(lesspipe)"
-  if [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-  fi
-  # END Linux specific
+	# BEGIN Linux specific
+	alias esed='sed -r'
+	eval "`dircolors`"
+	alias ls='ls --color=auto'
+	alias l='ls --color=auto -lAFh'
+	[ -x /usr/bin/lesspipe ] && eval "$(lesspipe)"
+	if [ -f /etc/bash_completion ]; then
+		. /etc/bash_completion
+	fi
+	export GOOS=linux
+	# END Linux specific
 fi
 
 # User binaries
@@ -43,58 +45,66 @@ export PATH=~/bin:$PATH
 
 # Pygments less
 if [ "$(which pygmentize)" != "" ] ;then
-  pyglessfilter() {
-    pygmentize -l diff -O bg=dark -P encoding=utf-8 | /usr/bin/less --no-lessopen -R
-    # --line-numbers
-  }
-  if [ -x ~/bin/less-colorize.sh ]; then
-    export LESSOPEN="| ${HOME}/bin/less-colorize.sh %s"
-    export LESS='-R'
-  fi
+	pyglessfilter() {
+		pygmentize -l diff -O bg=dark -P encoding=utf-8 | /usr/bin/less --no-lessopen -R
+	}
+	if [ -x ~/bin/less-colorize.sh ]; then
+		export LESSOPEN="| ${HOME}/bin/less-colorize.sh %s"
+		export LESS='-R'
+	fi
 else
-  alias pyglessfilter='cat'
+	alias pyglessfilter='cat'
+fi
+
+# Default Go env
+export GOROOT=$HOME/src/go
+#export GOBIN=$HOME/bin # ~/bin is already the default
+if [ "$(uname -m)" = "i386" ]; then
+	export GOARCH=386
+else
+	export GOARCH=amd64
 fi
 
 # RCS/VCS
 st() {
-  if [ -d .hg ]; then
-    hg -v status $*
-  elif [ -d .svn ]; then
-    svn st $* | perl -we 'local $endpiece=""; local @conflicts=(); while(<>){
-      if(m/^X/) { print "\033[1;30m"; }
-      elsif(m/^[D!~]/) { print "\033[1;31m"; }
-      elsif(m/^A/) { print "\033[1;32m"; }
-      elsif(m/^[MR]/) { print "\033[1;36m"; }
-      elsif(m/^ M/) { print "\033[36m"; }
-      elsif(m/^(?:C|.C)/) { print "\033[1;33m"; push(@conflicts, $_); }
-      elsif(m/^[IP]erforming status on external item/) {
-        print "\033[1;30m";
-        s/\'"'"'(.[^\'"'"']+)\'"'"'\n/\033[m$1\033[1;30m/gm;
-        $endpiece = "\n";
-      }
-      if(m/^..L/) { s/^(..)L/$1\033[40mL/; }
-      print ;
-      print "\033[0m";
-    };
-    print $endpiece;
-    if(@conflicts) {
-      print "$endpiece\033[1m\033[41mConflicts:\033[0m \n", @conflicts;
-    }'
-  else
-    git status $*
-  fi
+	if [ -d .hg ]; then
+		hg -v status $*
+	elif [ -d .svn ]; then
+		svn st $* | perl -we 'local $endpiece=""; local @conflicts=(); while(<>){
+			if(m/^X/) { print "\033[1;30m"; }
+			elsif(m/^[D!~]/) { print "\033[1;31m"; }
+			elsif(m/^A/) { print "\033[1;32m"; }
+			elsif(m/^[MR]/) { print "\033[1;36m"; }
+			elsif(m/^ M/) { print "\033[36m"; }
+			elsif(m/^(?:C|.C)/) { print "\033[1;33m"; push(@conflicts, $_); }
+			elsif(m/^[IP]erforming status on external item/) {
+				print "\033[1;30m";
+				s/\'"'"'(.[^\'"'"']+)\'"'"'\n/\033[m$1\033[1;30m/gm;
+				$endpiece = "\n";
+			}
+			if(m/^..L/) { s/^(..)L/$1\033[40mL/; }
+			print ;
+			print "\033[0m";
+		};
+		print $endpiece;
+		if(@conflicts) {
+			print "$endpiece\033[1m\033[41mConflicts:\033[0m \n", @conflicts;
+		}'
+	else
+		git status $*
+	fi
 }
 alias ci='git ci'
 alias hgci='hg commit -m'
 alias svnci='svn ci -m'
 df() {
-  if [ -d .hg ]; then
-    hg diff -p --color=always $* | less --no-lessopen -R
-  elif [ -d .svn ]; then
-    svn diff -x -u -x -b $* | pyglessfilter
-  else
-    git diff $*
-  fi
+	if [ -d .hg ]; then
+		hg diff -p --color=always $* | less --no-lessopen -R
+	elif [ -d .svn ]; then
+		svn diff -x -u -x -b $* | pyglessfilter
+	else
+		git diff $*
+	fi
 }
 
 # SSH aliases
@@ -111,10 +121,10 @@ export PYTHONSTARTUP="$HOME/.pystartup"
 
 # Git status for prompt
 function parse_git_dirty {
-  [[ $(git status 2> /dev/null | tail -n1) != "nothing to commit (working directory clean)" ]] && echo "*"
+	[[ $(git status 2> /dev/null | tail -n1) != "nothing to commit (working directory clean)" ]] && echo "*"
 }
 function parse_git_branch {
-  git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/\1$(parse_git_dirty)/"
+	git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/\1$(parse_git_dirty)/"
 }
 
 # Prompt
