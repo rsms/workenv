@@ -1,0 +1,17 @@
+# Go binaries
+terminal/bin/6nm
+terminal/bin/8a
+terminal/bin/8c
+terminal/bin/8g
+terminal/bin/8l
+terminal/bin/cgo
+terminal/bin/class-dump
+terminal/bin/ebnflint
+terminal/bin/godefs
+terminal/bin/godoc
+terminal/bin/gofmt
+terminal/bin/gopack
+terminal/bin/gotest
+terminal/bin/goyacc
+terminal/bin/hgpatch
+terminal/bin/quietgcc
