@@ -59,10 +59,10 @@ fi
 # Default Go env
 export GOROOT=$HOME/src/go
 #export GOBIN=$HOME/bin # ~/bin is already the default
-if [ "$(uname -m)" = "i386" ]; then
-	export GOARCH=386
-else
+if [ "$(sysctl -n hw.cpu64bit_capable)" = 1 ]; then
 	export GOARCH=amd64
+else
+	export GOARCH=386
 fi
 
 # RCS/VCS
@@ -115,6 +115,7 @@ alias hal='ssh hal.hunch.se'
 alias grep='grep -i --color'
 export GREP_COLOR='40;01;31'
 alias py='python'
+alias node-repl='rlwrap node-repl'
 # recursive diff: rdiff [options to diff] diroriginal dirmodified
 alias rdiff='diff -ruNx .DS_Store -x "~*" -x "._*"'
 export PYTHONSTARTUP="$HOME/.pystartup"
