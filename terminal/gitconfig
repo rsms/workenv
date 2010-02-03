@@ -1,39 +1,41 @@
 [user]
-  email = rasmus@
-  name = Rasmus Andersson
+	email = rasmus@
+	name = Rasmus Andersson
 
 [branch]
-  autosetupmerge = true
+	autosetupmerge = true
 
 [color]
-  ui = auto
+	ui = auto
 
 [color "branch"]
-  current = cyan bold
-  local = yellow bold
-  remote = green bold
+	current = cyan bold
+	local = yellow bold
+	remote = green bold
 
 [color "diff"]
-  meta = blue bold
-  frag = cyan bold
-  old = red bold
-  new = green bold
-  whitespace = red reverse
+	meta = blue bold
+	frag = cyan bold
+	old = red bold
+	new = green bold
+	whitespace = red reverse
 
 [color "status"]
-  added = green bold
-  changed = yellow bold
-  untracked = cyan bold
+	added = green bold
+	changed = yellow bold
+	untracked = cyan bold
 
 [alias]
-  st = status
-  ci = commit -m
-  br = branch
-  co = checkout
-  up = pull --tags origin master
-  pu = push --tags origin master
-  log = log --topo-order --decorate
-  addp = add --patch
+	st = status
+	ci = commit -m
+	br = branch
+	co = checkout
+	up = pull --tags origin master
+	pu = push --tags origin master
+	log = log --topo-order --decorate
+	addp = add --patch
+	mr = merge --no-ff
+	unstage = reset HEAD
 
 [core]
-  excludesfile = /Users/rasmus/.gitignore
+	excludesfile = /Users/rasmus/.gitignore
