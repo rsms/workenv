@@ -2,8 +2,11 @@
 	email = rasmus@
 	name = Rasmus Andersson
 
+[core]
+	whitespace = trailing-space,space-before-tab
+
 [branch]
-	autosetupmerge = true
+	autosetuprebase = always
 
 [color]
 	ui = auto
@@ -31,7 +34,7 @@
 	br = branch
 	co = checkout
 	up = pull --tags origin master
-	pu = push --tags origin master
+	pu = push origin master
 	log = log --topo-order --decorate
 	addp = add --patch
 	mr = merge --no-ff
