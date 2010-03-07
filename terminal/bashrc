@@ -5,6 +5,9 @@ export HISTCONTROL=ignoredups
 shopt -s checkwinsize cmdhist
 export EDITOR=nano
 
+# User binaries
+export PATH=~/bin:$PATH
+
 if [ -d /System/Library/CoreServices/Finder.app ]; then
 	# BEGIN Mac OS X specific
 	alias esed='sed -E'
@@ -39,9 +42,6 @@ else
 	export GOOS=linux
 	# END Linux specific
 fi
-
-# User binaries
-export PATH=~/bin:$PATH
 
 # Pygments less
 if [ "$(which pygmentize)" != "" ] ;then
