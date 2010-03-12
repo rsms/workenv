@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>English</string>
+	<key>CFBundleGetInfoString</key>
+	<string>Hunch Colloquy Chat Style</string>
+	<key>CFBundleIdentifier</key>
+	<string>se.hunch.colloquy.style.hunch</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>Hunch</string>
+	<key>CFBundlePackageType</key>
+	<string>coSt</string>
+	<key>JVStyleDescription</key>
+	<string>Easy now...</string>
+	<key>NSHumanReadableCopyright</key>
+	<string>Rasmus Andersson</string>
+</dict>
+</plist>
