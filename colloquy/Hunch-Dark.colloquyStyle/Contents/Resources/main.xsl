@@ -169,26 +169,6 @@
 
 	<xsl:template name="short-time">
 		<xsl:param name="date" /> <!-- YYYY-MM-DD HH:MM:SS +/-HHMM -->
-		<xsl:choose>
-			<xsl:when test="number(substring($date, 12, 2)) &gt; 12">
-				<xsl:value-of select="number(substring($date, 12, 2)) - 12" />
-			</xsl:when>
-			<xsl:when test="number(substring($date, 12, 2)) = 0">
-				<xsl:text>12</xsl:text>
-			</xsl:when>
-			<xsl:otherwise>
-				<xsl:value-of select="number(substring($date, 12, 2))" />
-			</xsl:otherwise>
-		</xsl:choose>
-		<xsl:text>:</xsl:text>
-		<xsl:value-of select="substring($date, 15, 2)" />
-		<xsl:choose>
-			<xsl:when test="number(substring($date, 12, 2)) &gt;= 12">
-				<xsl:text>pm</xsl:text>
-			</xsl:when>
-			<xsl:otherwise>
-				<xsl:text>am</xsl:text>
-			</xsl:otherwise>
-		</xsl:choose>
+		<xsl:value-of select="substring($date, 12, 5)" />
 	</xsl:template>
 </xsl:stylesheet>
