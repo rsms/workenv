@@ -8,6 +8,9 @@
 [branch]
 	autosetuprebase = always
 
+[push]
+	default = tracking
+
 [color]
 	ui = auto
 
