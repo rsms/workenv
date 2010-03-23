@@ -14,7 +14,7 @@
 				<key>caret</key>
 				<string>#00F7F7</string>
 				<key>foreground</key>
-				<string>#BEBEBE</string>
+				<string>#D8D8D8</string>
 				<key>invisibles</key>
 				<string>#FFFFFF40</string>
 				<key>lineHighlight</key>
@@ -65,8 +65,10 @@
 			<string>punctuation.definition.keyword</string>
 			<key>settings</key>
 			<dict>
+				<key>fontStyle</key>
+				<string></string>
 				<key>foreground</key>
-				<string>#3D4D56</string>
+				<string>#648A9F</string>
 			</dict>
 		</dict>
 		<dict>
@@ -76,6 +78,8 @@
 			<string>constant</string>
 			<key>settings</key>
 			<dict>
+				<key>fontStyle</key>
+				<string></string>
 				<key>foreground</key>
 				<string>#D397A9</string>
 			</dict>
@@ -211,7 +215,9 @@
 			<key>settings</key>
 			<dict>
 				<key>background</key>
-				<string>#B0B3BA14</string>
+				<string>#B0B3BA08</string>
+				<key>fontStyle</key>
+				<string></string>
 			</dict>
 		</dict>
 		<dict>
@@ -223,6 +229,8 @@
 			<dict>
 				<key>background</key>
 				<string>#B1B3BA21</string>
+				<key>fontStyle</key>
+				<string></string>
 			</dict>
 		</dict>
 		<dict>
@@ -311,7 +319,7 @@
 				<key>fontStyle</key>
 				<string></string>
 				<key>foreground</key>
-				<string>#E9A992</string>
+				<string>#E9DF6E</string>
 			</dict>
 		</dict>
 		<dict>
@@ -324,7 +332,7 @@
 				<key>fontStyle</key>
 				<string></string>
 				<key>foreground</key>
-				<string>#C8B9A7</string>
+				<string>#ACE0BA</string>
 			</dict>
 		</dict>
 		<dict>
@@ -391,6 +399,8 @@
 			<string>meta.selector.css entity.name.tag</string>
 			<key>settings</key>
 			<dict>
+				<key>fontStyle</key>
+				<string></string>
 				<key>foreground</key>
 				<string>#CDA869</string>
 			</dict>
@@ -435,8 +445,23 @@
 			<string>support.type.property-name.css</string>
 			<key>settings</key>
 			<dict>
+				<key>fontStyle</key>
+				<string></string>
 				<key>foreground</key>
-				<string>#C5AF75</string>
+				<string>#BFA78C</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>§ css property-name: (vendor)</string>
+			<key>scope</key>
+			<string>support.type.property-name.css.vendor</string>
+			<key>settings</key>
+			<dict>
+				<key>fontStyle</key>
+				<string></string>
+				<key>foreground</key>
+				<string>#A38D6E</string>
 			</dict>
 		</dict>
 		<dict>
@@ -467,7 +492,7 @@
 			<key>name</key>
 			<string>§ css additional-constants</string>
 			<key>scope</key>
-			<string>meta.property-value support.constant.named-color.css, meta.property-value constant</string>
+			<string>meta.property-value support.constant.named-color.css, meta.property-value constant, constant.other.unit</string>
 			<key>settings</key>
 			<dict>
 				<key>fontStyle</key>
