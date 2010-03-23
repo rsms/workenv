@@ -6,7 +6,7 @@ shopt -s checkwinsize cmdhist
 export EDITOR=nano
 
 # User binaries
-export PATH=~/bin:$PATH
+export PATH=~/bin:~/.gem/ruby/1.8/bin:$PATH
 
 # BEGIN Mac OS X specific
 alias esed='sed -E'
