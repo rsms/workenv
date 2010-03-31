@@ -51,6 +51,9 @@ else
 	export GOARCH=386
 fi
 
+# z http://github.com/rupa/z
+[ -f ~/src/z/z.sh ] && . ~/src/z/z.sh
+
 # RCS/VCS
 st() {
 	if [ -d .hg ]; then
