@@ -1,0 +1,2 @@
+Grab http://js2-mode.googlecode.com/svn/trunk and build.
+Put build/js2-mode.{el,elc} into this directory
