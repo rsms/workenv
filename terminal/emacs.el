@@ -78,7 +78,7 @@
 ;; c/c++/etc
 (add-hook 'c-mode-common-hook
   (lambda()
-    (local-set-key (kbd "M-s-up") 'ff-find-other-file)))
+    (local-set-key (kbd "M-s-<up>") 'ff-find-other-file)))
 
 ;; show secluded paren match in minibuffer
 (defadvice show-paren-function (after show-matching-paren-offscreen activate)
