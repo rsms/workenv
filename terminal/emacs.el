@@ -1,12 +1,57 @@
 (add-to-list 'load-path "~/.emacs.d/")
 
-;; General
-(custom-set-variables
- '(indent-tabs-mode nil)
- '(standard-indent 2)
- '(tab-width 2)
- '(default-frame-alist (quote ((cursor-color . "Red") (cursor-type . bar))))
-)
+;; start the emacsclient server
+(server-start)
+
+;; no splash screen
+(setq inhibit-splash-screen t)
+
+;; Global default settings
+(setq-default indent-tabs-mode nil)
+(setq-default standard-indent 2)
+(setq-default tab-width 2)
+(setq-default column-number-mode 1)
+(show-paren-mode 1)
+(setq show-paren-delay 0)
+(normal-erase-is-backspace-mode 1) ;; DEL deletes forward
+(setq initial-frame-alist '(
+  (top . 0) (left . 0)
+  (width . 40) (height . 80) ;; 40 is roughly equivalent to 80 columns(WTF?)
+  (cursor-type . bar) (cursor-color . "Red")
+))
+
+;; Fix: delete the selected text on DEL, Ctrl-d, or Backspace
+(delete-selection-mode t)
+
+;; Preserve the owner and group of the file you're editing 
+(setq backup-by-copying-when-mismatch t)
+
+;; Set up recentf so I can get a list of recent files when I start
+(recentf-mode 1)
+;;(recentf-open-files nil "*Recent Files*")
+(setq recentf-max-saved-items 1200)
+
+;; When you start Emacs, package Session restores various variables
+;; (e.g., input histories) from your last session. It also provides a
+;; menu containing recently changed/visited files and restores the
+;; places (e.g., point) of such a file when you revisit it.
+;;
+;; C-x C-/ jumps to the position of the last change
+(require 'session)
+(add-hook 'after-init-hook 'session-initialize)
+
+;; Make scripts executable on Save (saves having to do the chmod every time)
+(add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
+
+;; Change title bar to ~/file-directory if the current buffer is a
+;; real file or buffer name if it is just a buffer.
+(setq frame-title-format 
+      '(:eval 
+        (if buffer-file-name 
+            (replace-regexp-in-string 
+             (getenv "HOME") "~"
+             (file-name-directory buffer-file-name)) 
+          (buffer-name))))
 
 ;; Key bindings (On OS X, s=Cmd)
 (global-set-key (kbd "s-}") 'next-buffer)     ; OS X-isch "next tab"
@@ -15,8 +60,26 @@
 (global-set-key (kbd "s-<left>") 'beginning-of-line)
 (global-set-key (kbd "s-<up>") 'beginning-of-buffer)
 (global-set-key (kbd "s-<down>") 'end-of-buffer)
+;(global-set-key (kbd "s-w") 'delete-window)
+
+;; show secluded paren match in minibuffer
+(defadvice show-paren-function (after show-matching-paren-offscreen activate)
+  "If the matching paren is offscreen, show the matching line in the echo area.
+   Has no effect if the character before point is not of the syntax class ')'."
+  (interactive)
+  (let ((matching-text nil))
+    ;; Only call `blink-matching-open' if the character before point
+    ;; is a close parentheses type character. Otherwise, there's not
+    ;; really any point, and `blink-matching-open' would just echo
+    ;; "Mismatched parentheses", which gets really annoying.
+    (if (char-equal (char-syntax (char-before (point))) ?\))
+        (setq matching-text (blink-matching-open)))
+    (if (not (null matching-text))
+        (message matching-text))))
 
 ;; Theme
+(set-face-background 'show-paren-match-face "#330")
+(set-face-foreground 'show-paren-match-face "#ff0")
 (custom-set-faces
  '(default ((t (:inherit nil :stipple nil :background "#171717" :foreground "#ebebeb" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight light :height 120 :width normal :foundry "apple" :family "M+_1m"))))
  ;;'(c++-mode-default ((t (:inherit autoface-default :foreground "#ebebeb" :height 130 :family "M+ 1m"))) t)
@@ -47,7 +110,7 @@
 
 ;; auto-complete
 (require 'auto-complete-config)
-(add-to-list 'ac-dictionary-directories "~/.emacs.d//ac-dict")
+(add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
 (ac-config-default)
 
 ;; JavaScript

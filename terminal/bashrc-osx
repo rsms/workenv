@@ -1,9 +1,10 @@
-# ~/.bashrc
+# -*- shell-script -*-
 # Rasmus Andersson
 umask 022
 export HISTCONTROL=ignoredups
 shopt -s checkwinsize cmdhist
 export EDITOR=nano
+alias e='emacsclient -n'
 
 # User binaries
 export PATH=~/bin:~/.gem/ruby/1.8/bin:$PATH
