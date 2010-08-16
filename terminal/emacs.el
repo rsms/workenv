@@ -11,19 +11,22 @@
 (setq-default standard-indent 2)
 (setq-default tab-width 2)
 (setq-default column-number-mode 1)
+(setq-default show-trailing-whitespace 1)
 (show-paren-mode 1)
 (setq show-paren-delay 0)
 (normal-erase-is-backspace-mode 1) ;; DEL deletes forward
-(setq initial-frame-alist '(
-  (top . 0) (left . 0)
-  (width . 40) (height . 80) ;; 40 is roughly equivalent to 80 columns(WTF?)
-  (cursor-type . bar) (cursor-color . "Red")
-))
+(setq default-frame-alist (append (list
+  '(top . 0) '(left . 0)
+  '(width . 40) '(height . 80) ;; 40 is roughly equivalent to 80 columns(WTF?)
+  '(cursor-type . bar) '(cursor-color . "Red")
+
+  ) default-frame-alist))
+(blink-cursor-mode 1)
 
 ;; Fix: delete the selected text on DEL, Ctrl-d, or Backspace
 (delete-selection-mode t)
 
-;; Preserve the owner and group of the file you're editing 
+;; Preserve the owner and group of the file you're editing
 (setq backup-by-copying-when-mismatch t)
 
 ;; Set up recentf so I can get a list of recent files when I start
@@ -45,22 +48,37 @@
 
 ;; Change title bar to ~/file-directory if the current buffer is a
 ;; real file or buffer name if it is just a buffer.
-(setq frame-title-format 
-      '(:eval 
-        (if buffer-file-name 
-            (replace-regexp-in-string 
+(setq frame-title-format
+      '(:eval
+        (if buffer-file-name
+            (replace-regexp-in-string
              (getenv "HOME") "~"
-             (file-name-directory buffer-file-name)) 
+             (file-name-directory buffer-file-name))
           (buffer-name))))
 
+;; Kill default buffer without the extra emacs questions
+(defun silently-kill-buffer ()
+  (interactive)
+  (kill-buffer (buffer-name)))
+
 ;; Key bindings (On OS X, s=Cmd)
-(global-set-key (kbd "s-}") 'next-buffer)     ; OS X-isch "next tab"
-(global-set-key (kbd "s-{") 'previous-buffer) ; OS X-isch "previous tab"
+(global-set-key (kbd "s-{") 'next-buffer) ;; inverted since pop-front
+(global-set-key (kbd "s-}") 'previous-buffer)
 (global-set-key (kbd "s-<right>") 'end-of-line)
 (global-set-key (kbd "s-<left>") 'beginning-of-line)
 (global-set-key (kbd "s-<up>") 'beginning-of-buffer)
 (global-set-key (kbd "s-<down>") 'end-of-buffer)
-;(global-set-key (kbd "s-w") 'delete-window)
+(global-set-key (kbd "C-<backspace>") 'silently-kill-buffer)
+;; windows
+(global-set-key (kbd "M-w") 'delete-window)
+(global-set-key (kbd "M-S-w") 'delete-other-windows)
+(global-set-key (kbd "C-M-<down>") 'split-window-vertically)
+(global-set-key (kbd "C-M-<right>") 'split-window-horizontally)
+(global-set-key (kbd "s-]") 'other-window)
+;; c/c++/etc
+(add-hook 'c-mode-common-hook
+  (lambda()
+    (local-set-key (kbd "M-s-up") 'ff-find-other-file)))
 
 ;; show secluded paren match in minibuffer
 (defadvice show-paren-function (after show-matching-paren-offscreen activate)
@@ -80,6 +98,7 @@
 ;; Theme
 (set-face-background 'show-paren-match-face "#330")
 (set-face-foreground 'show-paren-match-face "#ff0")
+(set-face-background 'trailing-whitespace "#f52")
 (custom-set-faces
  '(default ((t (:inherit nil :stipple nil :background "#171717" :foreground "#ebebeb" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight light :height 120 :width normal :foundry "apple" :family "M+_1m"))))
  ;;'(c++-mode-default ((t (:inherit autoface-default :foreground "#ebebeb" :height 130 :family "M+ 1m"))) t)
@@ -183,7 +202,7 @@
   (c-toggle-hungry-state 1)
   (set (make-local-variable 'indent-line-function) 'my-js2-indent-function)
   (define-key js2-mode-map [(meta control |)] 'cperl-lineup)
-  (define-key js2-mode-map [(meta control \;)] 
+  (define-key js2-mode-map [(meta control \;)]
     '(lambda()
        (interactive)
        (insert "/* -----[ ")
