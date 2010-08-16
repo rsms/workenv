@@ -80,7 +80,7 @@
   (lambda()
     (local-set-key (kbd "M-s-<up>") 'ff-find-other-file)))
 
-;; show secluded paren match in minibuffer
+;; display out-of-sight paren match in minibuffer
 (defadvice show-paren-function (after show-matching-paren-offscreen activate)
   "If the matching paren is offscreen, show the matching line in the echo area.
    Has no effect if the character before point is not of the syntax class ')'."
