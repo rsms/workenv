@@ -114,8 +114,6 @@ alias hal='ssh hal.hunch.se'
 # Misc
 alias grep='grep -i --color'
 export GREP_COLOR='40;01;31'
-alias py='python'
-alias node-repl='rlwrap node-repl'
 # recursive diff: rdiff [options to diff] diroriginal dirmodified
 alias rdiff='diff -ruNx .DS_Store -x "~*" -x "._*"'
 export PYTHONSTARTUP="$HOME/.pystartup"
@@ -125,7 +123,8 @@ function parse_git_dirty {
 	[[ $(git status 2> /dev/null | tail -n1) != "nothing to commit (working directory clean)" ]] && echo "*"
 }
 function parse_git_branch {
-	git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/\1$(parse_git_dirty)/"
+	git branch --no-color 2> /dev/null \
+	| sed -e '/^[^*]/d' -e "s/* \(.*\)/\1$(parse_git_dirty)/"
 }
 
 # Prompt
@@ -135,4 +134,9 @@ _PS1user="\[\e[31;1m\]\u"
 _PS1meta1="\[\e[0;40m\]@\h\[\e[0;40m\]:\[\e[33;1m\]\w \[\e[0;1;30m\] \t \[\e[36;1m\]"
 _PS1meta2git="\[\e[32;1m\]\$(parse_git_branch) \[\e[36;1m\]"
 _PS1end="\n\[\e[36;1m\]\\$\[\e[0m\] "
-export PROMPT_COMMAND='PS1="$_PS1prefix$_PS1user$_PS1meta1$_PS1meta2git$(echo -ne $(jobs -l | esed "s/^\[([0-9]+)\].{1,1} +([0-9]+) [A-Za-z]+ +(.+)/\3 [#\1 \2]/"))$_PS1end"; echo -ne "\033]0;`id -un`@`hostname -s`:`_userpwd` [$(date +%H:%M)]\007"'
+export PS1="$_PS1prefix$_PS1user$_PS1meta1$_PS1meta2git$_PS1end"
+# this sets the title of the window
+# user@host:path [HH:MM]
+#export PROMPT_COMMAND='echo -ne "\033]0;`id -un`@`hostname -s`:`_userpwd` [$(date +%H:%M)]\007"'
+# host:path
+export PROMPT_COMMAND='echo -ne "\033]0;`hostname -s`:`_userpwd`\007"'
