@@ -1,47 +1,29 @@
 # ~/.bashrc
 # Rasmus Andersson
+
+# BEGIN Linux specific
+alias esed='sed -r'
+eval "`dircolors`"
+alias ls='ls --color=auto'
+alias l='ls --color=auto -lAFh'
+[ -x /usr/bin/lesspipe ] && eval "$(lesspipe)"
+if [ -f /etc/bash_completion ]; then
+	. /etc/bash_completion
+fi
+export GOOS=linux
+# END Linux specific
+
+# Everything below here should be in sync with other bashrc-* files
+
+# General stuff
 umask 022
 export HISTCONTROL=ignoredups
 shopt -s checkwinsize cmdhist
 export EDITOR=nano
+alias e='emacsclient -n'
 
 # User binaries
-export PATH=~/bin:$PATH
-
-if [ -d /System/Library/CoreServices/Finder.app ]; then
-	# BEGIN Mac OS X specific
-	alias esed='sed -E'
-	export CLICOLOR=1
-	export LSCOLORS=ExGxcxdxCxegedabagacad
-	alias l='ls -lAFh'
-	if [ -d /opt ]; then
-		export PATH=/opt/local/bin:/opt/local/sbin:$PATH
-		export MANPATH=$MANPATH:/opt/local/share/man
-		if [ -f /opt/local/etc/bash_completion ]; then
-			. /opt/local/etc/bash_completion
-		fi
-	fi
-	rgrep() {
-		mdfind -0 -onlyin "$1" "$2" | xargs -0 grep --color "$2"
-	}
-	rfind() {
-		mdfind -onlyin "$1" "$2"
-	}
-	export GOOS=darwin
-	# END Mac OS X specific
-else
-	# BEGIN Linux specific
-	alias esed='sed -r'
-	eval "`dircolors`"
-	alias ls='ls --color=auto'
-	alias l='ls --color=auto -lAFh'
-	[ -x /usr/bin/lesspipe ] && eval "$(lesspipe)"
-	if [ -f /etc/bash_completion ]; then
-		. /etc/bash_completion
-	fi
-	export GOOS=linux
-	# END Linux specific
-fi
+export PATH=$HOME/bin:$HOME/src/depot_tools:$PATH
 
 # Pygments less
 if [ "$(which pygmentize)" != "" ] ;then
@@ -56,13 +38,15 @@ else
 	alias pyglessfilter='cat'
 fi
 
-# Default Go env
-export GOROOT=$HOME/src/go
-#export GOBIN=$HOME/bin # ~/bin is already the default
-if [ "$(sysctl -n hw.cpu64bit_capable)" = 1 ]; then
-	export GOARCH=amd64
-else
-	export GOARCH=386
+# ec2 CLI tools
+if [ -d ~/.ec2 ]; then
+  export EC2_HOME="$HOME/.ec2"
+  export PATH=$PATH:$EC2_HOME/bin
+  export EC2_PRIVATE_KEY=`ls $EC2_HOME/pk-*.pem`
+  export EC2_CERT=`ls $EC2_HOME/cert-*.pem`
+  if [ -z $JAVA_HOME ]; then
+    export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Home/
+  fi
 fi
 
 # RCS/VCS
@@ -98,9 +82,7 @@ alias ci='git ci'
 alias hgci='hg commit -m'
 alias svnci='svn ci -m'
 df() {
-	if [ -d .hg ]; then
-		hg diff -p --color=always $* | less --no-lessopen -R
-	elif [ -d .svn ]; then
+	if [ -d .svn ]; then
 		svn diff -x -u -x -b $* | pyglessfilter
 	else
 		git diff $*
@@ -108,7 +90,6 @@ df() {
 }
 
 # SSH aliases
-alias apple='ssh apple.spotify.net'
 alias hal='ssh hal.hunch.se'
 
 # Misc
