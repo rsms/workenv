@@ -16,6 +16,7 @@ fi
 #rgrep() { mdfind -0 -onlyin "$1" "$2" | xargs -0 grep --color "$2" }
 #rfind() { mdfind -onlyin "$1" "$2" }
 export GOOS=darwin
+export LANG=en_US.UTF-8
 # END Mac OS X specific
 
 # Everything below here should be in sync with other bashrc-* files
