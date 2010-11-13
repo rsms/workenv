@@ -18,3 +18,9 @@ debian/files
 *.xcodeproj/*.pbxuser
 *.xcodeproj/*.perspective*
 *.xcodeproj/*.mode1*
+*/*.xcodeproj/*.pbxuser
+*/*.xcodeproj/*.perspective*
+*/*.xcodeproj/*.mode1*
+*/*/*.xcodeproj/*.pbxuser
+*/*/*.xcodeproj/*.perspective*
+*/*/*.xcodeproj/*.mode1*
