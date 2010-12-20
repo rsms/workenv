@@ -44,6 +44,9 @@ else
 	alias pyglessfilter='cat'
 fi
 
+# ack
+export ACK_PAGER="/usr/bin/less -R"
+
 # ec2 CLI tools
 if [ -d ~/.ec2 ]; then
   export EC2_HOME="$HOME/.ec2"
