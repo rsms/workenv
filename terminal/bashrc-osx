@@ -29,7 +29,7 @@ export EDITOR=nano
 alias e='emacsclient -n'
 
 # User binaries
-export PATH=$HOME/bin:$HOME/src/depot_tools:$PATH
+export PATH=$HOME/bin:$HOME/src/depot_tools:/usr/local/git/bin:$PATH
 
 # Pygments less
 if [ "$(which pygmentize)" != "" ] ;then
