@@ -24,3 +24,10 @@ debian/files
 */*/*.xcodeproj/*.pbxuser
 */*/*.xcodeproj/*.perspective*
 */*/*.xcodeproj/*.mode1*
+
+*.xcodeproj/xcuserdata
+*.xcodeproj/project.xcworkspace
+*/*.xcodeproj/xcuserdata
+*/*.xcodeproj/project.xcworkspace
+*/*/*.xcodeproj/xcuserdata
+*/*/*.xcodeproj/project.xcworkspace
