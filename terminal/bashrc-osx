@@ -114,19 +114,23 @@ function parse_git_dirty {
 }
 function parse_git_branch {
 	git branch --no-color 2> /dev/null \
-	| sed -e '/^[^*]/d' -e "s/* \(.*\)/\1$(parse_git_dirty)/"
+	| sed -e '/^[^*]/d' -e "s/* \(.*\)/\1 /"
+	#| sed -e '/^[^*]/d' -e "s/* \(.*\)/\1$(parse_git_dirty)/"
 }
 
 # Prompt
 alias _userpwd='/usr/bin/perl -e '"'"'use Cwd;my $d=cwd();my $h=$ENV{"HOME"};my $dl=length($d);my $hl=length($h);if(($dl>=$hl)&&($h==substr($d,$hl))){print "~".substr($d,$hl,$dl);}else{print $d;}'"'"
-_PS1prefix="\[\e[40;32;1m\]>>> "
-_PS1user="\[\e[31;1m\]\u"
-_PS1meta1="\[\e[0;40m\]@\h\[\e[0;40m\]:\[\e[33;1m\]\w \[\e[0;1;30m\] \t \[\e[36;1m\]"
-_PS1meta2git="\[\e[32;1m\]\$(parse_git_branch) \[\e[36;1m\]"
-_PS1end="\n\[\e[36;1m\]\\$\[\e[0m\] "
-export PS1="$_PS1prefix$_PS1user$_PS1meta1$_PS1meta2git$_PS1end"
+#_PS1prefix="\[\e[40;32;1m\]>>> "
+#_PS1user="\[\e[31;1m\]\u"
+#_PS1meta1="\[\e[0;40m\]@\h\[\e[0;40m\]:\[\e[33;1m\]\w \[\e[0;1;30m\] \t \[\e[36;1m\]"
+#_PS1meta2git="\[\e[32;1m\]\$(parse_git_branch) \[\e[36;1m\]"
+#_PS1end="\n\[\e[36;1m\]\\$\[\e[0m\] "
+#export PS1="$_PS1prefix$_PS1user$_PS1meta1$_PS1meta2git$_PS1end"
+
+export PS1="\[\e[32;1m\]\u \[\e[33;1m\]\w\[\e[0;1;30m\] \[\e[34;1m\]\$(parse_git_branch)\[\e[36;1m\]\[\e[36;1m\]❯ \[\e[0m\]"
 # this sets the title of the window
 # user@host:path [HH:MM]
 #export PROMPT_COMMAND='echo -ne "\033]0;`id -un`@`hostname -s`:`_userpwd` [$(date +%H:%M)]\007"'
 # host:path
-export PROMPT_COMMAND='echo -ne "\033]0;`hostname -s`:`_userpwd`\007"'
+#export PROMPT_COMMAND='echo -ne "\033]0;`hostname -s`:`_userpwd`\007"'
+export PROMPT_COMMAND='echo -ne "\033]0;$(_userpwd)\007"'
