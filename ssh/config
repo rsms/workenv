@@ -1,0 +1,4 @@
+Host s.rsms
+  Hostname s.rsms.me
+  User ubuntu
+  IdentityFile ~/.ssh/s.rsms.me.pem

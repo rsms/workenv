@@ -1,35 +1,39 @@
 # -*- shell-script -*-
 # Rasmus Andersson
 
+# BEGIN Facebook Android stuff
+export ANDROID_SDK_HOME='/Users/rsms/local/Android/android-sdk-macosx'
+export PATH="$ANDROID_SDK_HOME/tools:$PATH"
+export PATH="$ANDROID_SDK_HOME/platform-tools:$PATH"
+export NDK_MODULE_PATH='/Users/rsms/local/Android/android-ndk-r8'
+export PATH="$NDK_MODULE_PATH:$PATH"
+# END Facebook Android stuff
+
 # BEGIN Mac OS X specific
 alias esed='sed -E'
 export CLICOLOR=1
 export LSCOLORS=ExGxcxdxCxegedabagacad
 alias l='ls -lAFh'
-if [ -d /opt ]; then
-	export PATH=/opt/local/bin:/opt/local/sbin:$PATH
-	export MANPATH=$MANPATH:/opt/local/share/man
-	if [ -f /opt/local/etc/bash_completion ]; then
-		. /opt/local/etc/bash_completion
-	fi
-fi
 #rgrep() { mdfind -0 -onlyin "$1" "$2" | xargs -0 grep --color "$2" }
 #rfind() { mdfind -onlyin "$1" "$2" }
 export GOOS=darwin
 export LANG=en_US.UTF-8
+BREW_PREFIX=$(brew --prefix)
+if [ -f $BREW_PREFIX/etc/bash_completion ]; then
+  . $BREW_PREFIX/etc/bash_completion
+fi
 # END Mac OS X specific
 
 # Everything below here should be in sync with other bashrc-* files
 
-# General stuff
 umask 022
 export HISTCONTROL=ignoredups
 shopt -s checkwinsize cmdhist
-export EDITOR=nano
+export EDITOR='subl --wait'
 alias e='emacsclient -n'
 
-# User binaries
-export PATH=$HOME/bin:$HOME/src/depot_tools:/usr/local/git/bin:$PATH
+# User binaries ~/bin
+export PATH=$HOME/bin:$HOME/src/depot_tools:/usr/local/git/bin:/usr/local/bin:$PATH
 
 # Pygments less
 if [ "$(which pygmentize)" != "" ] ;then
@@ -59,34 +63,7 @@ if [ -d ~/.ec2 ]; then
 fi
 
 # RCS/VCS
-st() {
-	if [ -d .hg ]; then
-		hg -v status $*
-	elif [ -d .svn ]; then
-		svn st $* | perl -we 'local $endpiece=""; local @conflicts=(); while(<>){
-			if(m/^X/) { print "\033[1;30m"; }
-			elsif(m/^[D!~]/) { print "\033[1;31m"; }
-			elsif(m/^A/) { print "\033[1;32m"; }
-			elsif(m/^[MR]/) { print "\033[1;36m"; }
-			elsif(m/^ M/) { print "\033[36m"; }
-			elsif(m/^(?:C|.C)/) { print "\033[1;33m"; push(@conflicts, $_); }
-			elsif(m/^[IP]erforming status on external item/) {
-				print "\033[1;30m";
-				s/\'"'"'(.[^\'"'"']+)\'"'"'\n/\033[m$1\033[1;30m/gm;
-				$endpiece = "\n";
-			}
-			if(m/^..L/) { s/^(..)L/$1\033[40mL/; }
-			print ;
-			print "\033[0m";
-		};
-		print $endpiece;
-		if(@conflicts) {
-			print "$endpiece\033[1m\033[41mConflicts:\033[0m \n", @conflicts;
-		}'
-	else
-		git status $*
-	fi
-}
+alias st='git status'
 alias ci='git ci'
 alias hgci='hg commit -m'
 alias svnci='svn ci -m'
@@ -97,9 +74,6 @@ df() {
 		git diff $*
 	fi
 }
-
-# SSH aliases
-alias hal='ssh hal.hunch.se'
 
 # Misc
 alias grep='grep -i --color'
@@ -120,17 +94,5 @@ function parse_git_branch {
 
 # Prompt
 alias _userpwd='/usr/bin/perl -e '"'"'use Cwd;my $d=cwd();my $h=$ENV{"HOME"};my $dl=length($d);my $hl=length($h);if(($dl>=$hl)&&($h==substr($d,$hl))){print "~".substr($d,$hl,$dl);}else{print $d;}'"'"
-#_PS1prefix="\[\e[40;32;1m\]>>> "
-#_PS1user="\[\e[31;1m\]\u"
-#_PS1meta1="\[\e[0;40m\]@\h\[\e[0;40m\]:\[\e[33;1m\]\w \[\e[0;1;30m\] \t \[\e[36;1m\]"
-#_PS1meta2git="\[\e[32;1m\]\$(parse_git_branch) \[\e[36;1m\]"
-#_PS1end="\n\[\e[36;1m\]\\$\[\e[0m\] "
-#export PS1="$_PS1prefix$_PS1user$_PS1meta1$_PS1meta2git$_PS1end"
-
 export PS1="\[\e[32;1m\]\u \[\e[33;1m\]\w\[\e[0;1;30m\] \[\e[34;1m\]\$(parse_git_branch)\[\e[36;1m\]\[\e[36;1m\]❯ \[\e[0m\]"
-# this sets the title of the window
-# user@host:path [HH:MM]
-#export PROMPT_COMMAND='echo -ne "\033]0;`id -un`@`hostname -s`:`_userpwd` [$(date +%H:%M)]\007"'
-# host:path
-#export PROMPT_COMMAND='echo -ne "\033]0;`hostname -s`:`_userpwd`\007"'
 export PROMPT_COMMAND='echo -ne "\033]0;$(_userpwd)\007"'
